@@ -18,7 +18,7 @@ namespace SD
         {
             ServerType = serverType;
         }
-        public void MakeRequest(string method, string? message = null)
+        public string MakeRequest(string method, string? message = null)
         {
             int port;
 
@@ -27,12 +27,12 @@ namespace SD
             else
                 port = RequestConfig.GetRequestPort(method, ServerType, SystemType);
 
-            InternMakeRequest(port, message);
+            return InternMakeRequest(port, message);
         }
 
-        private static void InternMakeRequest(int port, string? message)
+        private static string InternMakeRequest(int port, string? message)
         {
-            IPEndPoint ipEndPoint = new(IPAddress.Parse("192.168.100.11"), port);
+            IPEndPoint ipEndPoint = new(IPAddress.Parse("192.168.100.125"), port);
             using Socket client = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             client.Connect(ipEndPoint);
@@ -54,6 +54,7 @@ namespace SD
 
             Console.WriteLine(response);
             client.Close();
+            return response;
         }
     }
 }
