@@ -40,7 +40,7 @@ namespace SD
             if (data == null) return;
             if (cancellationToken.IsCancellationRequested) return;
             Data.AddRange(data);
-            Console.WriteLine(nameof(T) + " adicionadas: " + data.Count.ToString());
+            Console.WriteLine(typeof(T).Name + " adicionadas: " + data.Count.ToString());
             handler.Send(Encoding.UTF8.GetBytes("Data received"));
             handler.Close();
         }
